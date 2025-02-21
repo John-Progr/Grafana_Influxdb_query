@@ -1,0 +1,5 @@
+from(bucket: "metrics_bucket")
+  |> range(start: -1h)
+  |> filter(fn: (r) => r["_field"] == "std_d")
+  |> aggregateWindow(every: 15s, fn: last)
+  |> yield(name: "std_d")
